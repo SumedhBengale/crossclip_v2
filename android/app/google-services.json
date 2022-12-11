@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "535545675507",
+    "project_id": "crossclip-271415",
+    "storage_bucket": "crossclip-271415.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535545675507:android:6c5b50aaffd274b30b4186",
+        "android_client_info": {
+          "package_name": "com.example.crossclip_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535545675507-mm2kfj50ueoq55pbi5k147q9as2fgf89.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy245_L42wWmiQVp2eOgoo0SsGytaxzrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535545675507-mm2kfj50ueoq55pbi5k147q9as2fgf89.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
