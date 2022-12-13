@@ -1,7 +1,9 @@
+import 'package:crossclip_v2/UI/Authentication/SignIn/signin.dart';
 import 'package:crossclip_v2/logic/homepage/cubit/homepage_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_dart/firebase_dart.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -78,7 +80,16 @@ class _SettingsState extends State<Settings> {
                     ],
                   );
                 },
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignIn()));
+                  },
+                  child: const Text("Sign Out")),
             ],
           ),
         ));
