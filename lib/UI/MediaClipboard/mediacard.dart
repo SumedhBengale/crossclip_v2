@@ -1,16 +1,16 @@
-import 'package:crossclip_v2/logic/text_clipboard/cubit/text_clipboard_cubit.dart';
+import 'package:crossclip_v2/logic/media_clipboard/cubit/media_clipboard_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TextCard extends StatefulWidget {
+class MediaCard extends StatefulWidget {
   final String text;
   final String id;
-  const TextCard(this.text, this.id, {super.key});
+  const MediaCard(this.text, this.id, {super.key});
   @override
-  State<TextCard> createState() => _TextCardState();
+  State<MediaCard> createState() => _MediaCardState();
 }
 
-class _TextCardState extends State<TextCard> {
+class _MediaCardState extends State<MediaCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,8 +35,8 @@ class _TextCardState extends State<TextCard> {
               ),
               ElevatedButton(
                 onPressed: () => {
-                  BlocProvider.of<TextClipboardCubit>(context)
-                      .deleteText(widget.id)
+                  BlocProvider.of<MediaClipboardCubit>(context)
+                      .deleteMedia(widget.id)
                 },
                 child: const Icon(Icons.delete),
               )

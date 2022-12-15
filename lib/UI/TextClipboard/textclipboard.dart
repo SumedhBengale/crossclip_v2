@@ -21,13 +21,8 @@ class _TextClipboardState extends State<TextClipboard> {
                 'https://crossclip-271415-default-rtdb.firebaseio.com/')
         .reference();
     var uid = FirebaseAuth.instance.currentUser!.uid;
-    var newref = await ref.child('users/$uid/textClipboard').push();
+    var newref = ref.child('users/$uid/textClipboard').push();
     await newref.set({'text': textController.text});
-    // await ref.child('users/$uid').update({
-    //   "name": "John",
-    //   "age": 18,
-    //   "address": {"line1": "100 View"}
-    // });
   }
 
   @override
@@ -42,27 +37,43 @@ class _TextClipboardState extends State<TextClipboard> {
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 10, right: 10, left: 10, bottom: 60),
-                child: BlocConsumer<TextClipboardCubit, TextClipboardState>(
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
+                child: BlocBuilder<TextClipboardCubit, TextClipboardState>(
                   builder: (context, state) {
-                    return MasonryGridView.count(
-                      crossAxisCount:
-                          MediaQuery.of(context).size.width ~/ 450.toInt() > 0
+                    if (state is TextClipboardUpdate) {
+                      if (state.event.snapshot.value == null) {
+                        return const Center(
+                            child: Text("No Text in Clipboard"));
+                      } else {
+                        Map<String, dynamic> data = state.event.snapshot.value;
+                        List text = [];
+                        List ids = [];
+                        for (var key in data.keys) {
+                          text.add(data[key]['text']);
+                          ids.add(key);
+                        }
+                        return MasonryGridView.count(
+                          crossAxisCount: MediaQuery.of(context).size.width ~/
+                                      450.toInt() >
+                                  0
                               ? MediaQuery.of(context).size.width ~/ 450.toInt()
                               : 1,
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      scrollDirection: Axis.vertical,
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      itemCount: 200,
-                      itemBuilder: (context, index) {
-                        return const TextCard();
-                      },
-                    );
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          itemCount: state.event.snapshot.value.length,
+                          itemBuilder: (context, index) {
+                            return TextCard(text[index], ids[index]);
+                          },
+                        );
+                      }
+                    } else {
+                      BlocProvider.of<TextClipboardCubit>(context).getStream();
+                      return const Center(
+                          child: Center(child: CircularProgressIndicator()));
+                    }
                   },
                 ),
               ),
